@@ -5,13 +5,14 @@ const {
   WINNING_MSG,
   PRINT_MSG,
 } = require("./constants/Message");
+const InputView = require("./InputView");
 const Lotto = require("./Lotto");
+const runGenerator = require("./runGenerator");
 const Utils = require("./Utils");
-const Validator = require("./Validator");
 
 class App {
+  #purchase;
   constructor() {
-    this.validator = new Validator();
     this.lottos = [];
     this.winningNumber;
     this.bonusNumber = 0;
@@ -19,6 +20,17 @@ class App {
     this.winningLotto = new Array(6).fill(0);
     this.profit = 0;
   }
+
+  play() {
+    runGenerator(this.#run.bind(this));
+    // this.inputPurchase();
+  }
+  *#run() {
+    this.#purchase = yield InputView.inputPurchase;
+    console.log("purchase: ", this.#purchase);
+  }
+
+  /*******************************************/
   printLotto(number) {
     Console.print(`${number}${PRINT_MSG.BUY}`);
     for (let index = 0; index < number; index++) {
@@ -90,10 +102,6 @@ class App {
   printRate() {
     const rate = Utils.toFixedsecond((this.profit / this.purchase) * 100);
     Console.print(`${PRINT_MSG.RATE}${rate}%${PRINT_MSG.SUFFIX}`);
-  }
-
-  play() {
-    this.inputPurchase();
   }
 }
 
