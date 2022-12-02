@@ -8,6 +8,7 @@ const {
 const InputView = require("./InputView");
 const Lotto = require("./Lotto");
 const LottoGame = require("./LottoGame");
+const MakeLotto = require("./MakeLotto");
 const OutputView = require("./outputView");
 const runGenerator = require("./runGenerator");
 const Utils = require("./Utils");
@@ -34,7 +35,10 @@ class App {
     this.createLotto();
     OutputView.printLottos(this.#lottoGame.getLotto());
     const winningLotto = yield InputView.inputWinningNumber;
-    console.log("winning lotto: ", winningLotto.getNumber());
+    const bonusNumber = yield InputView.inputBonus;
+    const win = MakeLotto.makeWinningLotto(winningLotto, bonusNumber);
+    this.#lottoGame.setWinningLotto(win);
+    console.log("win: ", this.#lottoGame.getwinninglotto().getlotto());
   }
 
   createLotto() {

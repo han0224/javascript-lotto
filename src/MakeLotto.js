@@ -1,5 +1,8 @@
 const Lotto = require("./Lotto");
 const { Random } = require("@woowacourse/mission-utils");
+const Utils = require("./Utils");
+const { ERROR_MSG } = require("./constants/Message");
+const WinningLotto = require("./WinningLotto");
 
 const MakeLotto = {
   makeLotto(number) {
@@ -9,7 +12,11 @@ const MakeLotto = {
       return new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
     return new Lotto(number);
   },
-  makeWinningLotto() {},
+  makeWinningLotto(lotto, bonus) {
+    if (lotto.getNumber().includes(bonus))
+      Utils.error(ERROR_MSG.LOTTO_DUPLICATED);
+    return new WinningLotto(lotto, bonus);
+  },
 };
 
 module.exports = MakeLotto;

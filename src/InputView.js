@@ -1,6 +1,7 @@
 const { Random, Console } = require("@woowacourse/mission-utils");
 const { INPUT_MSG } = require("./constants/Message");
 const MakeLotto = require("./MakeLotto");
+const Utils = require("./Utils");
 const Validator = require("./Validator");
 
 const InputView = {
@@ -14,7 +15,11 @@ const InputView = {
       callback(MakeLotto.makeLotto(answer));
     });
   },
-  inputBonus() {},
+  inputBonus(callback) {
+    Console.readLine(INPUT_MSG.BONUS_NUMBER, (answer) => {
+      callback(Utils.setBonus(answer));
+    });
+  },
 };
 
 module.exports = InputView;
