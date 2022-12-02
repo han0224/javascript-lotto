@@ -11,6 +11,7 @@ class Lotto {
   }
 
   validate(numbers) {
+    console.log("lotto", numbers);
     if (numbers.length !== 6) {
       throw Utils.error(ERROR_MSG.WRONG_LENGTH);
     }

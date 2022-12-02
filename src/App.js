@@ -33,10 +33,13 @@ class App {
     this.#purchase = yield InputView.inputPurchase;
     this.createLotto();
     OutputView.printLottos(this.#lottoGame.getLotto());
+    const winningLotto = yield InputView.inputWinningNumber;
+    console.log("winning lotto: ", winningLotto.getNumber());
   }
 
   createLotto() {
     for (let cnt = 0; cnt < this.#purchase; cnt++) {
+      // makelotto로 수정
       const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
       this.#lottoGame.addLottos(lotto);
     }
