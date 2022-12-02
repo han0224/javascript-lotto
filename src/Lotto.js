@@ -11,7 +11,6 @@ class Lotto {
   }
 
   validate(numbers) {
-    console.log("lotto", numbers);
     if (numbers.length !== 6) {
       throw Utils.error(ERROR_MSG.WRONG_LENGTH);
     }
@@ -25,7 +24,9 @@ class Lotto {
       throw Utils.error(ERROR_MSG.OVER_RANGE);
     }
   }
-
+  getNumber() {
+    return this.#numbers;
+  }
   /*************************/
   compare(winningLotto, bonusNumber) {
     switch (new Set([...winningLotto, ...this.#numbers]).size) {
@@ -42,9 +43,7 @@ class Lotto {
         return 0;
     }
   }
-  getNumber() {
-    return this.#numbers;
-  }
+
   getLotto() {
     return `[${this.#numbers.join(", ")}]`;
   }

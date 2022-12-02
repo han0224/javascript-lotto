@@ -38,7 +38,8 @@ class App {
     const bonusNumber = yield InputView.inputBonus;
     const win = MakeLotto.makeWinningLotto(winningLotto, bonusNumber);
     this.#lottoGame.setWinningLotto(win);
-    console.log("win: ", this.#lottoGame.getwinninglotto().getlotto());
+    this.#lottoGame.setResult();
+    OutputView.printWinning(this.#lottoGame.getResult());
   }
 
   createLotto() {
