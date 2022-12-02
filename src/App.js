@@ -8,6 +8,7 @@ const {
 const InputView = require("./InputView");
 const Lotto = require("./Lotto");
 const LottoGame = require("./LottoGame");
+const OutputView = require("./outputView");
 const runGenerator = require("./runGenerator");
 const Utils = require("./Utils");
 
@@ -31,17 +32,12 @@ class App {
   *#run() {
     this.#purchase = yield InputView.inputPurchase;
     this.createLotto();
-    console.log(
-      "lotto: ",
-      this.#lottoGame.getLotto(),
-      this.#lottoGame.getLotto()[0].getNumber()
-    );
+    OutputView.printLottos(this.#lottoGame.getLotto());
   }
 
   createLotto() {
     for (let cnt = 0; cnt < this.#purchase; cnt++) {
       const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
-      // this.#lottos.push(lotto);
       this.#lottoGame.addLottos(lotto);
     }
   }
