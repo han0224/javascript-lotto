@@ -12,8 +12,10 @@ const Utils = require("./Utils");
 
 class App {
   #purchase;
+  #lottos;
   constructor() {
-    this.lottos = [];
+    this.#lottos = [];
+    /********/
     this.winningNumber;
     this.bonusNumber = 0;
     this.purchase = 0;
@@ -27,21 +29,21 @@ class App {
   }
   *#run() {
     this.#purchase = yield InputView.inputPurchase;
-    console.log("purchase: ", this.#purchase);
+    this.createLotto();
+    console.log("lotto: ", this.#lottos, this.#lottos[0].getNumber());
   }
 
+  createLotto() {
+    for (let cnt = 0; cnt < this.#purchase; cnt++) {
+      const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
+      this.#lottos.push(lotto);
+    }
+  }
   /*******************************************/
   printLotto(number) {
     Console.print(`${number}${PRINT_MSG.BUY}`);
     for (let index = 0; index < number; index++) {
       Console.print(this.lottos[index].getLotto());
-    }
-  }
-
-  createLotto(number) {
-    for (let cnt = 0; cnt < number; cnt++) {
-      const lotto = new Lotto(Random.pickUniqueNumbersInRange(1, 45, 6));
-      this.lottos.push(lotto);
     }
   }
 

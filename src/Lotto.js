@@ -20,16 +20,12 @@ class Lotto {
     if (numbers.some((value) => !Utils.isNumber(value))) {
       throw Utils.error(ERROR_MSG.ONLY_NUMBER);
     }
-    if (this.isNotLottoNumber(numbers)) {
+    if (numbers.some((value) => value < 1 || value > 45)) {
       throw Utils.error(ERROR_MSG.OVER_RANGE);
     }
   }
-  isNotLottoNumber(number) {
-    return number.some((value) => value < 1 || value > 45);
-  }
-  isIncludes(number) {
-    return this.#numbers.includes(number);
-  }
+
+  /*************************/
   compare(winningLotto, bonusNumber) {
     switch (new Set([...winningLotto, ...this.#numbers]).size) {
       case 6:
